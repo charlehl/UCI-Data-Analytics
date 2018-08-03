@@ -1,2 +1,1 @@
-# homework1
-This is my submission for first homework for data analytics bootcamp
+This is my repository for my homework solutions for UCI Data Bootcamp.
