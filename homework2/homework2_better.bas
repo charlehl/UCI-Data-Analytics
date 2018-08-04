@@ -6,6 +6,10 @@ Sub parseStockData()
     Dim grtPctInc, grtPctDcs, grtTotVol As Double
     Dim iIndex As Integer
     Dim ws As Excel.Worksheet
+
+    Dim StartTime As Double
+    Dim SecondsElapsed As Double
+    StartTime = Timer
     
     ' For challenge
     For iIndex = 1 To ActiveWorkbook.Worksheets.Count
@@ -16,6 +20,9 @@ Sub parseStockData()
         parseSheet (numRows)
            
     Next iIndex
+
+    'Notify user in seconds
+    MsgBox "This code ran successfully in " & SecondsElapsed & " seconds", vbInformation
 End Sub
 Function parseSheet(numRows As Long)
     Dim stockVolume, yearOpen, yearClose As Double
