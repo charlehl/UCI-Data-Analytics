@@ -1,0 +1,5 @@
+# Pyber Trend Analysis
+1. The greatest average fares are found in the rural areas but these areas also have the least amount of rides and drivers.  The greater average fares would probably be due to people traveling longer distance in rural areas and limited drivers causing fare rates to be higher.  It would be interesting to see average time for rides as well to see if this is factor in the higher average fares for rural areas.
+2.  Although the average fare is lower in urban areas compared to other city types, it has the greatest amount of fares as can be seen in the 
+"Total Fares by City Type" pie diagram.  This is due in part to Sheer greater amount of rides as well as drivers.
+3. In addition to Urban areas have the most amount of drivers due in part to meet the demand of the number of rides in in these areas.  From the "Total Drivers by City Type" pie chart, we see that urban areas dominate in terms of the number of drivers.
