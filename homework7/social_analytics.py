@@ -212,7 +212,7 @@ def plotSentimentAnalysis():
     # Incorporate the other graph properties
     now = datetime.now()
     now = now.strftime("%Y-%m-%d %H:%M")
-    plt.title(f"VADAR Analysis of Tweets of {twitterToAnalyze} ({now})")
+    plt.title(f"VADAR Analysis of {twitterToAnalyze} ({now})")
     plt.ylabel("Tweet Polarity")
     plt.xlabel("Tweets Ago")
     plt.xlim(-len(sentiment_df), 1)

@@ -3,3 +3,5 @@ bungie
 nike
 cnn
 nfl
+luminosity48
+lakers
