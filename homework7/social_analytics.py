@@ -30,6 +30,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 
+# Global variables used throughout functions
 prevTwitterFile = "Resources/past_twitter_analysis.txt"
 imageAnalysisFile = "Images/sentiment.png"
 myTwitterHandle = "@elev8r_music"
@@ -122,6 +123,7 @@ def getTwitterData(twitterHandle):
     #print(twitterHandle)
     # Get last 500 tweets
     for x in range(5): 
+        # Check for errors just in case handle is bad, etc.
         try:
             # Get all tweets from home feed
             public_tweets = api.user_timeline(twitterHandle, count=100, page=x, max_id = oldest_tweet_id)
@@ -230,6 +232,7 @@ def plotSentimentAnalysis():
 # Function to check my timeline for new tweets
 def checkMyTimeline():
     global my_since_id
+    # Check for errors just in case
     try:
         my_tweets = api.home_timeline(since_id = my_since_id, count=100)
     except tweepy.TweepError:
@@ -247,7 +250,7 @@ def checkMyTimeline():
 #    print(tweet['user']['screen_name'])
 
 
-# In[ ]:
+# In[1]:
 
 
 # Posts results to my timeline with analysis figure
