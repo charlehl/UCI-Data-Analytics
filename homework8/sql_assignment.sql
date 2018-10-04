@@ -40,8 +40,7 @@ WHERE first_name = "HARPO" AND last_name = "WILLIAMS";
 #SET SQL_SAFE_UPDATES = 1;
 
 #5a
-CREATE SCHEMA address_info;
-DROP SCHEMA address_info;
+SHOW CREATE TABLE address;
 
 #6a
 #SELECT * FROM address;
