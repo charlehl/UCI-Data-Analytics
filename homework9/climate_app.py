@@ -6,7 +6,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template, request
 
 
 #################################################
@@ -41,7 +41,7 @@ def welcome():
     /api/v1.0/tobs
     /api/v1.0/<start> and /api/v1.0/<start>/<end>
     """
-    
+    """
     return (
         f"Available Routes:<br/>"
         f"/api/v1.0/precipitation<br/>"
@@ -50,6 +50,9 @@ def welcome():
         f"/api/v1.0/start_date<br/>"
         f"/api/v1.0/start_date/end_date"
     )
+    """
+    # User HTML template instead
+    return render_template('index.html')
 
 @app.route("/api/v1.0/precipitation")
 def precipitation():
@@ -129,6 +132,23 @@ def calc_temps_start_end(start, end):
                  "tavg": round(temp_start_end[0][1],2),
                  "tmax": temp_start_end[0][2]}
     return jsonify(temp_dict)
+
+# Add additional way to call temp functions
+@app.route("/api/start")
+def my_start():
+    return render_template('start_form.html')
+
+@app.route("/api/start_end")
+def my_start_end():
+    return render_template('start_end_form.html')
+
+@app.route("/api/process_start", methods=['POST', 'GET'])
+def start_post():
+    return calc_temps_start(request.form['start_date'])
+
+@app.route("/api/process_startend", methods=['POST', 'GET'])
+def start_end_post():
+    return calc_temps_start_end(request.form['start_date'], request.form['end_date'])
 
 if __name__ == '__main__':
     app.run(debug=True)
