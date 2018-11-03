@@ -99,7 +99,7 @@ submit.on("click", function() {
         ufoFiltered.forEach((sighting) => {
             var tableRow = tableBody.append("tr");
             Object.entries(sighting).forEach(([key, value]) => {
-                var cell = tableBody.append("td");
+                var cell = tableRow.append("td");
                 if(key === "city"){
                     cell.text(value.toTitle());
                 }
