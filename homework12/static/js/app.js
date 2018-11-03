@@ -56,6 +56,7 @@ submit.on("click", function() {
 
     // Get the value property of the input element
     var inputValueCity = d3.select("#city").property("value").toLowerCase();
+    d3.select("#city").node().value = "";
 
     // Get the value property of the input element
     var inputValueState = d3.select("#state-select").property("value");
