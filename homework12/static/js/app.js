@@ -8,6 +8,7 @@ tableBody.attr("id", "filtered-tbody-id")
 var submit = d3.select("#filter-btn");
 
 // Function to decode html strings in comments properly.
+// Found some of the comments would be html escaped on special characters.
 // Taken from stackoverflow example
 function decodeHtml(html) {
     var txt = document.createElement("textarea");
@@ -56,7 +57,8 @@ submit.on("click", function() {
 
     // Get the value property of the input element
     var inputValueCity = d3.select("#city").property("value").toLowerCase();
-    d3.select("#city").node().value = "";
+    // Clear input from last select
+    //d3.select("#city").node().value = "";
 
     // Get the value property of the input element
     var inputValueState = d3.select("#state-select").property("value");
@@ -68,6 +70,7 @@ submit.on("click", function() {
     var inputValueShape = d3.select("#shape-select").property("value");
 
     // Check if filter value was selected
+    // Create filter by checking all input sources
     if(inputValue !== "All"){
         filter['datetime'] = inputValue;
     }
@@ -90,12 +93,12 @@ submit.on("click", function() {
     var ufoFiltered = multiFilter(data, filter);
 
     console.log(ufoFiltered);
+
+    // Clear previous filter search results
+    document.getElementById("filtered-tbody-id").innerHTML = "";
     
     // Check if filter returned results
     if(isEmpty(ufoFiltered) === false){
-        // Clear previous filter search results
-        document.getElementById("filtered-tbody-id").innerHTML = "";
-
         // Output filtered table
         ufoFiltered.forEach((sighting) => {
             var tableRow = tableBody.append("tr");
@@ -130,7 +133,8 @@ function uniqueBy(arr, prop){
   }
 // Use these to create dropdown items on fly
 var datetimeFilter = uniqueBy(data, "datetime");
-var cityFilter = uniqueBy(data, "city");
+// Too many cities so just allow user to input
+//var cityFilter = uniqueBy(data, "city");
 var stateFilter = uniqueBy(data, "state");
 var countryFilter = uniqueBy(data, "country");
 var shapeFilter = uniqueBy(data, "shape");
