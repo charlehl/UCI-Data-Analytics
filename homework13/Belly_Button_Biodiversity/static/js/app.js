@@ -1,3 +1,9 @@
+function titleCase(str) {
+  return str.toLowerCase().split(' ').map(function(word) {
+    return (word.charAt(0).toUpperCase() + word.slice(1));
+  }).join(' ');
+}
+
 function buildMetadata(sample) {
   var meta_url = "/metadata/" + sample;
   // @TODO: Complete the following function that builds the metadata panel
@@ -12,7 +18,7 @@ function buildMetadata(sample) {
 
     metaDataPanel = "";
     Object.entries(data).forEach(([key, value]) => {
-      metaDataPanel += `${key}: ${value}` + "<br>";
+      metaDataPanel += titleCase(`${key}: ${value}`) + "<br>";
     });
     sampleMetadata.html(metaDataPanel);
 
@@ -72,9 +78,11 @@ function buildCharts(sample) {
     });
 
     var layout = { showlegend: false,
-                   width: 1500,
-                   margin: { t: 30, b: 100, p: 200 },
-                   xaxis: {title: "OTU ID"}};
+                   title: '<b>Top 10 Bacterial Samples by OTU ID</b>',
+                   autosize: true, 
+                   xaxis: {title: "OTU ID",
+                           automargin: true},
+                   yaxis: {automargin: true}};
     // @TODO: Build a Bubble Chart using the sample data
     var data = [{
       x: otu_ids,
@@ -92,7 +100,8 @@ function buildCharts(sample) {
     // HINT: You will need to use slice() to grab the top 10 sample_values,
     // otu_ids, and labels (10 each).
     //console.log(otu_labels);
-    layout = { margin: { t: 30, b: 10 }};
+    layout = { title: '<b>Top 10 Bacterial Sample Size</b>',
+               margin: { t: 30, b: 10 }};
     data = [{
       values: sample_values,
       labels: otu_ids,

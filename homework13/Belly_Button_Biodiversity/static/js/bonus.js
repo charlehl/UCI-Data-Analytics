@@ -2,7 +2,8 @@ function buildGauge(frequency) {
     // Function here
     console.log("Hi");
     // convert frequency to degree (0-9 so each frequency is 20 degrees)
-    var level = frequency * 20; 
+    // add 1.5 to make pointer point to division of gauge
+    var level = (frequency * 20) +1.5;
 
     // Trig to calc meter point
     var degrees = 180 - level,
@@ -24,18 +25,18 @@ function buildGauge(frequency) {
         marker: {size: 28, color:'850000'},
         showlegend: false,
         name: 'frequency',
-        text: level/20,
-        hoverinfo: 'text+name'},
+        text: frequency,
+        hoverinfo: 'text'},
         {values: [50/9, 50/9, 50/9, 50/9, 50/9, 50/9, 50/9, 50/9, 50/9, 50],
         rotation: 90,
-        text: ['9-8', '7-8', '6-7', '5-6', '4-5', '3-4', '2-3', '1-2', '0-1', ''],
+        text: ['8-9', '7-8', '6-7', '5-6', '4-5', '3-4', '2-3', '1-2', '0-1', ''],
         textinfo: 'text',
         textposition:'inside',
         marker: {colors:['#48B216', '#7ACA66', 'rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
                             'rgba(170, 202, 42, .5)', 'rgba(202, 209, 95, .5)',
                             'rgba(210, 206, 145, .5)', 'rgba(232, 226, 202, .5)', '#F0ECE4',
                             'rgba(255, 255, 255, 0)']},
-        labels: ['9-8', '7-8', '6-7', '5-6', '4-5', '3-4', '2-3', '1-2', '0-1', ''],
+        labels: ['8-9', '7-8', '6-7', '5-6', '4-5', '3-4', '2-3', '1-2', '0-1', ''],
         hoverinfo: 'label',
         hole: .5,
         type: 'pie',
@@ -43,7 +44,7 @@ function buildGauge(frequency) {
     }];
 
     var layout = {
-        yaxis: {title: 'Scrubs Per Week'},
+        yaxis: {},
         shapes:[{
             type: 'path',
             path: path,
@@ -52,7 +53,7 @@ function buildGauge(frequency) {
                 color: '850000'
             }
             }],
-        title: 'Belly Button Washing Frequency',
+        title: '<b>Belly Button Washing Frequency</b> <br> Scrubs Per Week',
         height: 500,
         width: 500,
         xaxis: {zeroline:false, showticklabels:false,
