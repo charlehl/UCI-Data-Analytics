@@ -1,18 +1,13 @@
 // @TODO: YOUR CODE HERE!
 
 // Establish svg size based on bootstrap column size allocated for scatter
-var scatterWidth = document.querySelector("#scatter").getBoundingClientRect()
+var scatterWidth = document.querySelector("#scatter").getBoundingClientRect();
 //console.log(scatterWidth);
 var svgWidth = scatterWidth.width;
 var svgHeight = svgWidth/1.5;
 
-var radius = 12;
-var font = "10px";
-
-if(scatterWidth.width < 400) {
-    radius = 2;
-}
-
+var radius = svgWidth/80;
+var font = svgWidth/80;
 
 
 var margin = {
@@ -156,6 +151,32 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
 // Retrieve data from the CSV file and execute everything below
 async function loadData() {
+    scatterWidth = document.querySelector("#scatter").getBoundingClientRect();
+    svgWidth = scatterWidth.width;
+    svgHeight = svgWidth/1.5;
+
+    // Factor radius and font based on svgWidth
+    radius = svgWidth/80;
+    font = svgWidth/80;
+
+    width = svgWidth - margin.left - margin.right;
+    height = svgHeight - margin.top - margin.bottom;
+
+    var svgArea = d3.select("#scatter").select("svg");
+
+    if (!svgArea.empty()) {
+      svgArea.remove();
+    }
+    svg = d3
+    .select("#scatter")
+    .append("svg")
+    .classed("chart", true)
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
+
+    chartGroup = svg.append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
     const censusData = await d3.csv("assets/data/data.csv")
         .then(function(csvData) {
             csvData.forEach(function(data) {
@@ -175,7 +196,6 @@ async function loadData() {
             console.log(error);
         });
     
-/////////////////////////////////////////////////////////////////////////////////////////////
     // xLinearScale function above csv import
     var xLinearScale = xScale(censusData, chosenXAxis);
 
@@ -204,7 +224,8 @@ async function loadData() {
         .classed("stateCircle", true)
         .attr("cx", d => xLinearScale(d[chosenXAxis]))
         .attr("cy", d => yLinearScale(d[chosenYAxis]))
-        .attr("r", radius);
+        .attr("r", radius)
+        .attr("opacity", ".8");
     
     // var stateAbbr = censusData.slice();
     // console.log(stateAbbr);
@@ -221,7 +242,7 @@ async function loadData() {
         .text(d=> d.abbr);
 
 
-    // Create group for  2 x- axis labels
+    // Create group for  3 x-axis labels
     var labelsGroup = chartGroup.append("g")
         .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
@@ -246,7 +267,7 @@ async function loadData() {
         .classed("inactive .aText", true)
         .text("Household Income (Median)");
 
-    // append y axis
+    // Create group for  3 y-axis labels
     var labelsYGroup = chartGroup.append("g")
         .attr("transform", "rotate(-90)");
         
@@ -282,7 +303,7 @@ async function loadData() {
         .on("click", function() {
         // get value of selection
         var value = d3.select(this).attr("value");
-        console.log(value);
+        //console.log(value);
         if (value !== chosenXAxis) {
 
             // replaces chosenXAxis with value
@@ -345,7 +366,7 @@ async function loadData() {
         .on("click", function() {
         // get value of selection
         var value = d3.select(this).attr("value");
-        console.log(value);
+        //console.log(value);
         if (value !== chosenYAxis) {
 
             // replaces chosenXAxis with value
@@ -402,8 +423,9 @@ async function loadData() {
                     .classed("inactive", true);
             }
         }
-        });
-/////////////////////////////////////////////////////////////////////////////////////////////    
+        }); 
 }
 
 loadData();
+// Make plot responsive to window size
+d3.select(window).on("resize", loadData);

@@ -38,6 +38,11 @@
 .chart {
   display: block;
   margin: 0;
+  background-image: url("census.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+  background-size: 50%;
+  opacity: 0.7;
 }
 
 .d3-tip {
@@ -57,7 +62,9 @@
   .stateText {
     display: none;
   }
-
+  .chart {
+    background-image: none;
+  }
   .aText {
     font-size: 14px;
   }
