@@ -1,1 +1,3 @@
-This is my repository for my homework solutions for UCI Data Bootcamp.
+# README.md
+##This is my repository for my homework solutions for UCI Data Bootcamp.
+
